@@ -1,0 +1,104 @@
+wiringPiSetup: Unable to open /dev/mem: Permission denied
+ruby-lcd.rb:25: [BUG] Segmentation fault
+ruby 1.9.3p327 (2012-11-10 revision 37606) [armv6l-linux-eabi]
+
+-- Control frame information -----------------------------------------------
+c:0004 p:---- s:0011 b:0011 l:000010 d:000010 CFUNC  :pinMode
+c:0003 p:0047 s:0006 b:0006 l:00093c d:00004c EVAL   ruby-lcd.rb:25
+c:0002 p:---- s:0004 b:0004 l:000003 d:000003 FINISH
+c:0001 p:0000 s:0002 b:0002 l:00093c d:00093c TOP   
+
+-- Ruby level backtrace information ----------------------------------------
+ruby-lcd.rb:25:in `<main>'
+ruby-lcd.rb:25:in `pinMode'
+
+-- C level backtrace information -------------------------------------------
+
+-- Other runtime information -----------------------------------------------
+
+* Loaded script: ruby-lcd.rb
+
+* Loaded features:
+
+    0 enumerator.so
+    1 /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/armv6l-linux-eabi/enc/encdb.so
+    2 /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/armv6l-linux-eabi/enc/trans/transdb.so
+    3 /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/site_ruby/1.9.1/rubygems/defaults.rb
+    4 /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/armv6l-linux-eabi/rbconfig.rb
+    5 /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/site_ruby/1.9.1/rubygems/deprecate.rb
+    6 /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/site_ruby/1.9.1/rubygems/exceptions.rb
+    7 /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb
+    8 /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/site_ruby/1.9.1/rubygems.rb
+    9 /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/site_ruby/1.9.1/armv6l-linux-eabi/wiringpi.so
+
+* Process memory map:
+
+00008000-00009000 r-xp 00000000 b3:02 141009     /home/pi/.rvm/rubies/ruby-1.9.3-p327/bin/ruby
+00010000-00011000 rw-p 00000000 b3:02 141009     /home/pi/.rvm/rubies/ruby-1.9.3-p327/bin/ruby
+00ae0000-00c7c000 rw-p 00000000 00:00 0          [heap]
+40014000-40016000 r-xp 00000000 b3:02 141706     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/armv6l-linux-eabi/enc/trans/transdb.so
+40016000-4001d000 ---p 00002000 b3:02 141706     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/armv6l-linux-eabi/enc/trans/transdb.so
+4001d000-4001e000 rw-p 00001000 b3:02 141706     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/armv6l-linux-eabi/enc/trans/transdb.so
+40037000-40039000 r-xp 00000000 b3:02 3883       /lib/arm-linux-gnueabihf/libdl-2.13.so
+40039000-40040000 ---p 00002000 b3:02 3883       /lib/arm-linux-gnueabihf/libdl-2.13.so
+40040000-40041000 r--p 00001000 b3:02 3883       /lib/arm-linux-gnueabihf/libdl-2.13.so
+40041000-40042000 rw-p 00002000 b3:02 3883       /lib/arm-linux-gnueabihf/libdl-2.13.so
+40042000-4004a000 r-xp 00000000 b3:02 145008     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/site_ruby/1.9.1/armv6l-linux-eabi/wiringpi.so
+4004a000-4004b000 rw-p 00008000 b3:02 145008     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/site_ruby/1.9.1/armv6l-linux-eabi/wiringpi.so
+40074000-40075000 rw-p 00000000 00:00 0 
+40086000-40088000 rw-p 00000000 00:00 0 
+40088000-400a8000 r-xp 00000000 b3:02 1062       /lib/arm-linux-gnueabihf/libgcc_s.so.1
+400a8000-400af000 ---p 00020000 b3:02 1062       /lib/arm-linux-gnueabihf/libgcc_s.so.1
+400af000-400b0000 rw-p 0001f000 b3:02 1062       /lib/arm-linux-gnueabihf/libgcc_s.so.1
+400b0000-400b1000 rw-p 00000000 00:00 0 
+400b1000-400b3000 r-xp 00000000 b3:02 141720     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/armv6l-linux-eabi/enc/encdb.so
+400b3000-400ba000 ---p 00002000 b3:02 141720     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/armv6l-linux-eabi/enc/encdb.so
+400ba000-400bb000 rw-p 00001000 b3:02 141720     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/armv6l-linux-eabi/enc/encdb.so
+400be000-400bf000 rw-p 00000000 00:00 0 
+400d3000-400d4000 ---p 00000000 00:00 0 
+400d4000-400d7000 rw-p 00000000 00:00 0 
+400db000-400dc000 rw-p 00000000 00:00 0 
+400e2000-400ff000 r-xp 00000000 b3:02 3871       /lib/arm-linux-gnueabihf/ld-2.13.so
+40107000-40108000 r--p 0001d000 b3:02 3871       /lib/arm-linux-gnueabihf/ld-2.13.so
+40108000-40109000 rw-p 0001e000 b3:02 3871       /lib/arm-linux-gnueabihf/ld-2.13.so
+40109000-4011d000 r-xp 00000000 b3:02 3870       /lib/arm-linux-gnueabihf/libpthread-2.13.so
+4011d000-40124000 ---p 00014000 b3:02 3870       /lib/arm-linux-gnueabihf/libpthread-2.13.so
+40124000-40125000 r--p 00013000 b3:02 3870       /lib/arm-linux-gnueabihf/libpthread-2.13.so
+40125000-40126000 rw-p 00014000 b3:02 3870       /lib/arm-linux-gnueabihf/libpthread-2.13.so
+40126000-40128000 rw-p 00000000 00:00 0 
+40128000-4012e000 r-xp 00000000 b3:02 3864       /lib/arm-linux-gnueabihf/librt-2.13.so
+4012e000-40135000 ---p 00006000 b3:02 3864       /lib/arm-linux-gnueabihf/librt-2.13.so
+40135000-40136000 r--p 00005000 b3:02 3864       /lib/arm-linux-gnueabihf/librt-2.13.so
+40136000-40137000 rw-p 00006000 b3:02 3864       /lib/arm-linux-gnueabihf/librt-2.13.so
+40174000-40175000 r-xp 00000000 b3:02 31708      /usr/lib/arm-linux-gnueabihf/libcofi_rpi.so
+40175000-4017c000 ---p 00001000 b3:02 31708      /usr/lib/arm-linux-gnueabihf/libcofi_rpi.so
+4017c000-4017d000 rw-p 00000000 b3:02 31708      /usr/lib/arm-linux-gnueabihf/libcofi_rpi.so
+4017d000-40347000 r-xp 00000000 b3:02 141011     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/libruby.so.1.9.1
+40347000-4034e000 ---p 001ca000 b3:02 141011     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/libruby.so.1.9.1
+4034e000-40352000 rw-p 001c9000 b3:02 141011     /home/pi/.rvm/rubies/ruby-1.9.3-p327/lib/libruby.so.1.9.1
+40352000-40362000 rw-p 00000000 00:00 0 
+40362000-40369000 r-xp 00000000 b3:02 3876       /lib/arm-linux-gnueabihf/libcrypt-2.13.so
+40369000-40370000 ---p 00007000 b3:02 3876       /lib/arm-linux-gnueabihf/libcrypt-2.13.so
+40370000-40371000 r--p 00006000 b3:02 3876       /lib/arm-linux-gnueabihf/libcrypt-2.13.so
+40371000-40372000 rw-p 00007000 b3:02 3876       /lib/arm-linux-gnueabihf/libcrypt-2.13.so
+40372000-40399000 rw-p 00000000 00:00 0 
+40399000-40401000 r-xp 00000000 b3:02 3885       /lib/arm-linux-gnueabihf/libm-2.13.so
+40401000-40408000 ---p 00068000 b3:02 3885       /lib/arm-linux-gnueabihf/libm-2.13.so
+40408000-40409000 r--p 00067000 b3:02 3885       /lib/arm-linux-gnueabihf/libm-2.13.so
+40409000-4040a000 rw-p 00068000 b3:02 3885       /lib/arm-linux-gnueabihf/libm-2.13.so
+4040a000-40529000 r-xp 00000000 b3:02 3877       /lib/arm-linux-gnueabihf/libc-2.13.so
+40529000-40531000 ---p 0011f000 b3:02 3877       /lib/arm-linux-gnueabihf/libc-2.13.so
+40531000-40533000 r--p 0011f000 b3:02 3877       /lib/arm-linux-gnueabihf/libc-2.13.so
+40533000-40534000 rw-p 00121000 b3:02 3877       /lib/arm-linux-gnueabihf/libc-2.13.so
+40534000-40537000 rw-p 00000000 00:00 0 
+40537000-406ae000 r--p 00000000 b3:02 18479      /usr/lib/locale/locale-archive
+406ae000-4072f000 rw-p 00000000 00:00 0 
+bef71000-bef92000 rw-p 00000000 00:00 0          [stack]
+ffff0000-ffff1000 r-xp 00000000 00:00 0          [vectors]
+
+
+[NOTE]
+You may have encountered a bug in the Ruby interpreter or extension libraries.
+Bug reports are welcome.
+For details: http://www.ruby-lang.org/bugreport.html
+

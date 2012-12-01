@@ -1,0 +1,47 @@
+LiquidCrystal_wrap.c: In function ‘SWIG_Ruby_define_class’:
+LiquidCrystal_wrap.c:1493:9: warning: variable ‘klass’ set but not used [-Wunused-but-set-variable]
+In file included from Printable.h:23:0,
+                 from Print.h:27,
+                 from LiquidCrystal.h:5,
+                 from LiquidCrystal_wrap.c:1879:
+./new.h: At top level:
+./new.h:10:17: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘new’
+./new.h:11:15: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘delete’
+./new.h:15:8: error: expected identifier or ‘(’ before string constant
+./new.h:16:8: error: expected identifier or ‘(’ before string constant
+./new.h:17:8: error: expected identifier or ‘(’ before string constant
+./new.h:19:8: error: expected identifier or ‘(’ before string constant
+In file included from Print.h:27:0,
+                 from LiquidCrystal.h:5,
+                 from LiquidCrystal_wrap.c:1879:
+Printable.h:25:1: error: unknown type name ‘class’
+Printable.h:33:1: error: unknown type name ‘class’
+Printable.h:34:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+In file included from LiquidCrystal.h:5:0,
+                 from LiquidCrystal_wrap.c:1879:
+Print.h:34:1: error: unknown type name ‘class’
+Print.h:35:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+In file included from LiquidCrystal_wrap.c:1879:0:
+LiquidCrystal.h:45:1: error: unknown type name ‘class’
+LiquidCrystal.h:45:21: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘:’ token
+LiquidCrystal_wrap.c: In function ‘_wrap_init’:
+LiquidCrystal_wrap.c:1983:3: warning: implicit declaration of function ‘init’ [-Wimplicit-function-declaration]
+LiquidCrystal_wrap.c: In function ‘_wrap_C_begin’:
+LiquidCrystal_wrap.c:2020:3: warning: implicit declaration of function ‘begin’ [-Wimplicit-function-declaration]
+LiquidCrystal_wrap.c: In function ‘_wrap_clear’:
+LiquidCrystal_wrap.c:2032:3: warning: implicit declaration of function ‘clear’ [-Wimplicit-function-declaration]
+LiquidCrystal_wrap.c: In function ‘_wrap_home’:
+LiquidCrystal_wrap.c:2044:3: warning: implicit declaration of function ‘home’ [-Wimplicit-function-declaration]
+LiquidCrystal_wrap.c: In function ‘_wrap_noDisplay’:
+LiquidCrystal_wrap.c:2056:3: warning: implicit declaration of function ‘noDisplay’ [-Wimplicit-function-declaration]
+LiquidCrystal_wrap.c: In function ‘_wrap_display’:
+LiquidCrystal_wrap.c:2068:3: warning: implicit declaration of function ‘display’ [-Wimplicit-function-declaration]
+LiquidCrystal_wrap.c: In function ‘_wrap_noBlink’:
+LiquidCrystal_wrap.c:2080:3: warning: implicit declaration of function ‘noBlink’ [-Wimplicit-function-declaration]
+LiquidCrystal_wrap.c: In function ‘_wrap_blink’:
+LiquidCrystal_wrap.c:2092:3: warning: implicit declaration of function ‘blink’ [-Wimplicit-function-declaration]
+LiquidCrystal_wrap.c: In function ‘_wrap_noCursor’:
+LiquidCrystal_wrap.c:2104:3: warning: implicit declaration of function ‘noCursor’ [-Wimplicit-function-declaration]
+LiquidCrystal_wrap.c: In function ‘_wrap_cursor’:
+LiquidCrystal_wrap.c:2116:3: warning: implicit declaration of function ‘cursor’ [-Wimplicit-function-declaration]
+make: *** [LiquidCrystal_wrap.o] Error 1
