@@ -137,19 +137,18 @@ def setEntryMode()
 end
 
 def write()
-puts "writing"
   # Write data to CGRAM/DDRAM
   Wiringpi.digitalWrite(P_RS, 1)
  #Wiringpi.digitalWrite(P_RW, 0)
   Wiringpi.digitalWrite(P_D7, 0)
   Wiringpi.digitalWrite(P_D6, 1)
-  Wiringpi.digitalWrite(P_D5, 1)
+  Wiringpi.digitalWrite(P_D5, 0)
   Wiringpi.digitalWrite(P_D4, 0)
   pulseEnable()
 
-  Wiringpi.digitalWrite(P_RS, 1)
+  Wiringpi.digitalWrite(P_RS, 0)
  #Wiringpi.digitalWrite(P_RW, 0)
-  Wiringpi.digitalWrite(P_D7, 1)
+  Wiringpi.digitalWrite(P_D7, 0)
   Wiringpi.digitalWrite(P_D6, 0)
   Wiringpi.digitalWrite(P_D5, 0)
   Wiringpi.digitalWrite(P_D4, 0)
@@ -180,13 +179,26 @@ def writeNothing()
   pulseEnable()
 end
 
+#sleep T_MS
+#write()
+#sleep T_MS
+#write()
+#sleep T_MS
+#write()
+#sleep T_MS
+#write()
+#sleep T_MS
+#writeNothing()
+
+
 def initDisplay()
 
-  # Set function to 4 bit operation"
+# Set function to 4 bit operation"
   i = 1
   while i < 4
     # Wait > 40 MS
     sleep 42 * T_MS
+puts "init"  
     Wiringpi.digitalWrite(P_RS, 0)
    #Wiringpi.digitalWrite(P_RW, 0)
     Wiringpi.digitalWrite(P_D7, 0)
@@ -288,5 +300,7 @@ initDisplay()
 #puts "Wating 3 sec"
 #sleep 3
 display(ON, ON, ON)
-setEntryMode()
+sleep 1
+write()
+sleep 1
 write()
