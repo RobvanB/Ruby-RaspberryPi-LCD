@@ -21,8 +21,11 @@
 # 16 Backlight LED Cathode (-)
 
 require 'wiringpi'
+require File.join(File.dirname(__FILE__), 'parse_bin')
 
-T_MS = 1/100000 #for testing not MS
+@onPi = false # So I can debug the non-RaspberryPi code on a separate machine
+
+T_MS = 1.0000000/1000000
 P_RS = 6
 P_RW = 99 #Bogus number not used at this moment
 P_EN = 5
@@ -37,70 +40,32 @@ P_D7 = 3
 ON   = 1
 OFF  = 0
 
-Wiringpi.wiringPiSetup
+@parseBin = ParseBin.new
 
-# Set all pins to output mode (not sure if this is needed)
-Wiringpi.pinMode(P_RS, 1)
-Wiringpi.pinMode(P_EN, 1)
-Wiringpi.pinMode(P_D4, 1)
-Wiringpi.pinMode(P_D5, 1)
-Wiringpi.pinMode(P_D6, 1)
-Wiringpi.pinMode(P_D7, 1)
+if (@onPi == true)
+  Wiringpi.wiringPiSetup
+
+  # Set all pins to output mode (not sure if this is needed)
+  Wiringpi.pinMode(P_RS, 1)
+  Wiringpi.pinMode(P_EN, 1)
+  Wiringpi.pinMode(P_D4, 1)
+  Wiringpi.pinMode(P_D5, 1)
+  Wiringpi.pinMode(P_D6, 1)
+  Wiringpi.pinMode(P_D7, 1)
+end
 
 def pulseEnable()
   # Indicate to LCD that command should be 'executed'
   Wiringpi.digitalWrite(P_EN, 0)
-  sleep T_MS
+  sleep T_MS * 10
   Wiringpi.digitalWrite(P_EN, 1)
-  sleep T_MS
+  sleep T_MS * 10
   Wiringpi.digitalWrite(P_EN, 0)
-  sleep T_MS
-end
-
-def set4bitMode()
-  # Set function to 4 bit operation
-  Wiringpi.digitalWrite(P_RS, 0)
- #Wiringpi.digitalWrite(P_RW, 0)
-  Wiringpi.digitalWrite(P_D7, 0)
-  Wiringpi.digitalWrite(P_D6, 0)
-  Wiringpi.digitalWrite(P_D5, 1)
-  Wiringpi.digitalWrite(P_D4, 0)
-  pulseEnable()
-
-  Wiringpi.digitalWrite(P_RS, 0)
- #Wiringpi.digitalWrite(P_RW, 0)
-  Wiringpi.digitalWrite(P_D7, 0)
-  Wiringpi.digitalWrite(P_D6, 0)
-  Wiringpi.digitalWrite(P_D5, 1)
-  Wiringpi.digitalWrite(P_D4, 0)
-  pulseEnable()
-
-  # Set 1 line display
-  Wiringpi.digitalWrite(P_RS, 0)
- #Wiringpi.digitalWrite(P_RW, 0)
-  Wiringpi.digitalWrite(P_D7, 0)
-  Wiringpi.digitalWrite(P_D6, 0)
-  pulseEnable()
+  sleep T_MS * 10
 end
 
 # Turn on display and cursor
-def display(display, cursor, block)
-  Wiringpi.digitalWrite(P_RS, 0)
- #Wiringpi.digitalWrite(P_RW, 0)
-  Wiringpi.digitalWrite(P_D7, 0)
-  Wiringpi.digitalWrite(P_D6, 0)
-  Wiringpi.digitalWrite(P_D5, 0)
-  Wiringpi.digitalWrite(P_D4, 0)
-  pulseEnable()
-
-  Wiringpi.digitalWrite(P_RS, 0)
- #Wiringpi.digitalWrite(P_RW, 0)
-  Wiringpi.digitalWrite(P_D7, 1)
-  Wiringpi.digitalWrite(P_D6, 1)
-  Wiringpi.digitalWrite(P_D5, 1)
-  Wiringpi.digitalWrite(P_D4, 0)
-  pulseEnable()
-
+def lcdDisplay(display, cursor, block)
   Wiringpi.digitalWrite(P_RS, 0)
  #Wiringpi.digitalWrite(P_RW, 0)
   Wiringpi.digitalWrite(P_D7, 0)
@@ -137,23 +102,22 @@ def setEntryMode()
   pulseEnable()
 end
 
-def write()
-puts "writing"
+def lcdWrite(charArray)
   # Write data to CGRAM/DDRAM
   Wiringpi.digitalWrite(P_RS, 1)
  #Wiringpi.digitalWrite(P_RW, 0)
-  Wiringpi.digitalWrite(P_D7, 0)
-  Wiringpi.digitalWrite(P_D6, 1)
-  Wiringpi.digitalWrite(P_D5, 1)
-  Wiringpi.digitalWrite(P_D4, 0)
+  Wiringpi.digitalWrite(P_D7, charArray[0])
+  Wiringpi.digitalWrite(P_D6, charArray[1])
+  Wiringpi.digitalWrite(P_D5, charArray[2])
+  Wiringpi.digitalWrite(P_D4, charArray[3])
   pulseEnable()
 
   Wiringpi.digitalWrite(P_RS, 1)
  #Wiringpi.digitalWrite(P_RW, 0)
-  Wiringpi.digitalWrite(P_D7, 1)
-  Wiringpi.digitalWrite(P_D6, 0)
-  Wiringpi.digitalWrite(P_D5, 0)
-  Wiringpi.digitalWrite(P_D4, 0)
+  Wiringpi.digitalWrite(P_D7, charArray[4])
+  Wiringpi.digitalWrite(P_D6, charArray[5])
+  Wiringpi.digitalWrite(P_D5, charArray[6])
+  Wiringpi.digitalWrite(P_D4, charArray[7])
   pulseEnable()
 end
 
@@ -176,16 +140,10 @@ def cls()
   pulseEnable()
 end
 
-def writeNothing()
-  Wiringpi.digitalWrite(P_RS, 0)
-  pulseEnable()
-end
-
 def initDisplay()
-
-  # Set function to 4 bit operation"
-  i = 1
-  while i < 4
+  # Set function to 4 bit operation
+  i = 0
+  while i < 3     # Needs to be executed 3 times
     # Wait > 40 MS
     sleep 42 * T_MS
     Wiringpi.digitalWrite(P_RS, 0)
@@ -198,10 +156,9 @@ def initDisplay()
     i += 1
   end
 
-
-  puts "  # Function set to 4 bit"
-  i = 1
-  while i < 3
+  # Function set to 4 bit
+  i = 0
+  while i < 2  # Needs to be executed 2 times
     Wiringpi.digitalWrite(P_RS, 0)
    #Wiringpi.digitalWrite(P_RW, 0)
     Wiringpi.digitalWrite(P_D7, 0)
@@ -212,7 +169,7 @@ def initDisplay()
     i += 1
   end
 
-  puts "  # Set number of display lines"
+  # Set number of display lines
   Wiringpi.digitalWrite(P_RS, 0)
  #Wiringpi.digitalWrite(P_RW, 0)
   Wiringpi.digitalWrite(P_D7, 0) #  N = 0 = 1 line display
@@ -223,7 +180,7 @@ def initDisplay()
 
   sleep T_MS
 
-  puts "  # Display Off (2 blocks)"
+  # Display Off (2 blocks)
   Wiringpi.digitalWrite(P_RS, 0)
  #Wiringpi.digitalWrite(P_RW, 0)
   Wiringpi.digitalWrite(P_D7, 0)
@@ -242,9 +199,9 @@ def initDisplay()
   Wiringpi.digitalWrite(P_D4, 0)
   pulseEnable()
 
-  sleep 3 #T_MS
+  sleep T_MS
 
-puts "  # Display clear (2 blocks)"
+  # Display clear (2 blocks)
   Wiringpi.digitalWrite(P_RS, 0)
  #Wiringpi.digitalWrite(P_RW, 0)
   Wiringpi.digitalWrite(P_D7, 0)
@@ -265,7 +222,7 @@ puts "  # Display clear (2 blocks)"
 
   sleep T_MS
 
-puts "  # Entry mode set"
+  # Entry mode set"
   Wiringpi.digitalWrite(P_RS, 0)
  #Wiringpi.digitalWrite(P_RW, 0)
   Wiringpi.digitalWrite(P_D7, 0)
@@ -285,9 +242,30 @@ puts "  # Entry mode set"
   pulseEnable()
 end
 
-initDisplay()
-#puts "Wating 3 sec"
-#sleep 3
-display(ON, ON, ON)
-setEntryMode()
-write()
+def lcdPrint(theText)
+  #Loop through each character in the string, convert it to binary, and print it to the LCD
+  theText.split(//).each { | theChar |
+    puts theChar
+    binChar = @parseBin.getBin(theChar)
+    if (binChar)
+      if (@onPi == true)
+        lcdWrite(binChar)
+      end
+      binChar = nil
+    end
+  }
+end
+
+if (@onPi == true)
+  initDisplay()
+  sleep T_MS
+  lcdDisplay(ON, ON, ON)
+  setEntryMode()
+end
+
+lcdPrint("Hello World")
+
+
+#lcdWrite()
+
+#cls()
