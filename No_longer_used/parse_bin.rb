@@ -18,7 +18,11 @@ class ParseBin
   def getBin(theChar)
     binArray = []
     binChar = @@map[theChar]
-    binChar.split(//).each{ |intChar| binArray << intChar.to_i  }
+    if (binChar)
+      binChar.split(//).each{ |intChar| binArray << intChar.to_i  }
+    else
+      puts theChar.bytes.first().to_s(2) + " not found in binary table."
+    end
 
     return binArray
   end

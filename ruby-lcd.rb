@@ -21,9 +21,9 @@
 # 16 Backlight LED Cathode (-)
 
 require 'wiringpi'
-require File.join(File.dirname(__FILE__), 'parse_bin')
+#require File.join(File.dirname(__FILE__), 'parse_bin') #No longer needed, found way easier method to convert to binary
 
-@onPi = false # So I can debug the non-RaspberryPi code on a separate machine
+@onPi = true # So I can debug the non-RaspberryPi code on a separate machine
 
 T_MS = 1.0000000/1000000
 P_RS = 6
@@ -40,7 +40,9 @@ P_D7 = 3
 ON   = 1
 OFF  = 0
 
-@parseBin = ParseBin.new
+@@charCount = 0
+
+#parseBin = ParseBin.new
 
 if (@onPi == true)
   Wiringpi.wiringPiSetup
@@ -119,6 +121,8 @@ def lcdWrite(charArray)
   Wiringpi.digitalWrite(P_D5, charArray[6])
   Wiringpi.digitalWrite(P_D4, charArray[7])
   pulseEnable()
+
+  @@charCount += 1
 end
 
 def cls()
@@ -172,7 +176,7 @@ def initDisplay()
   # Set number of display lines
   Wiringpi.digitalWrite(P_RS, 0)
  #Wiringpi.digitalWrite(P_RW, 0)
-  Wiringpi.digitalWrite(P_D7, 0) #  N = 0 = 1 line display
+  Wiringpi.digitalWrite(P_D7, 1) #  N = 0 = 1 line display
   Wiringpi.digitalWrite(P_D6, 0) #  F = 0 = 5x8 character font
   Wiringpi.digitalWrite(P_D5, 0)
   Wiringpi.digitalWrite(P_D4, 0)
@@ -246,26 +250,64 @@ def lcdPrint(theText)
   #Loop through each character in the string, convert it to binary, and print it to the LCD
   theText.split(//).each { | theChar |
     puts theChar
-    binChar = @parseBin.getBin(theChar)
+    #binChar = @parseBin.getBin(theChar)
+    binChar = theChar.bytes.first.to_s(2)
+    while binChar.length < 8
+      binChar = "0" + binChar
+    end
+
+    binCharArray = []
+    binChar.split().each {}
+    binChar.split(//).each{ |intChar| binCharArray << intChar.to_i  }
+
     if (binChar)
       if (@onPi == true)
-        lcdWrite(binChar)
+        lcdWrite(binCharArray)
       end
       binChar = nil
     end
   }
 end
 
+def nextLine()
+  # Display automatically goes to next line when we hit 40 chars
+  fillStr  = " "
+  fillCntr = 1
+
+  while (@@charCount + fillCntr < 40)
+    fillStr += " "
+    fillCntr += 1
+  end
+
+  lcdPrint(fillStr)
+
+  @@charCount = 0
+end
+
 if (@onPi == true)
   initDisplay()
-  sleep T_MS
+  sleep T_MS * 10
   lcdDisplay(ON, ON, ON)
   setEntryMode()
 end
 
-lcdPrint("Hello World")
 
+
+lcdPrint("Hello Dave.")
+sleep T_MS
+nextLine()
+sleep T_MS
+lcdPrint("How are things?")
+sleep 3
+nextLine()
+sleep T_MS
+cls()
+lcdPrint("Opening the ")
+sleep T_MS
+nextLine()
+lcdPrint("bay doors now...")
 
 #lcdWrite()
 
-#cls()
+sleep 10
+cls()
